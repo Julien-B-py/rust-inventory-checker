@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --cards-grid-gap: 1rem;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 0.5rem;
+}
+
+.items {
+    display: flex;
+    gap: var(--cards-grid-gap);
+    flex-wrap: wrap;
+    width: min(100%, 1200px);
+}
+
+.item {
+    aspect-ratio: 2 / 3;
+    width: calc((100% - 3* var(--cards-grid-gap)) / 4);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    gap: 1rem;
+}
+
+.item h2 {
+    flex: 1;
+}

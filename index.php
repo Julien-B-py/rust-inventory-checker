@@ -1,18 +1,21 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-declare(strict_types=1);
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-require_once("vendor/autoload.php");
+<body>
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+    <form action="/result.php" method="POST">
+        <input type="text" name="steamId" placeholder="SteamID64 or custom URL" required>
+        <input type="submit" name="search" value="Search">
+    </form>
 
-require_once("_includes/functions.php");
+</body>
 
-$steamId = $_ENV['STEAM_ID'];
-
-$myInventory = loadInventory($steamId);
-$myInventoryKeys = array_keys($myInventory);
-$stonkingItems = getStonkingItems();
-
-getYourStonkingItems($myInventory, $myInventoryKeys, $stonkingItems);
+</html>

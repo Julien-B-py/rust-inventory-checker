@@ -9,14 +9,20 @@
  */
 function loadInventory(string $steamId): array
 {
-    // GET and output source code of the website
-    $response = file_get_contents("https://steamcommunity.com/id/{$steamId}/inventory/json/252490/2?l=english&count=5000");
-    // Decode JSON data into a PHP associative array
+    // echo "<p>Fetching your Rust inventory</p>";
+    if (intval($steamId) === 0) {
+        // GET and output source code of the website
+        // Decode JSON data into a PHP associative array
+        $response = file_get_contents("https://steamcommunity.com/id/{$steamId}/inventory/json/252490/2?l=english&count=5000");
+    } else {
+        // GET and output source code of the website
+        // Decode JSON data into a PHP associative array
+        $response = file_get_contents("https://steamcommunity.com/profiles/{$steamId}/inventory/json/252490/2?l=english&count=5000");
+    }
+
     $data = json_decode($response, true);
     // Use array destructuring to assign rgInventory and rgDescriptions from $data to two variables.
     ['rgInventory' => $inventory, 'rgDescriptions' => $descriptions] = $data;
-
-    echo "<p>Fetching your Rust inventory</p>";
 
     // Create an empty array to store items using this structure : itemiId => count 
     $counts = [];
@@ -59,8 +65,9 @@ function loadInventory(string $steamId): array
  */
 function getStonkingItems(): array
 {
+    // echo "<p>Fetching Steam market for stonking items.</p>";
+    // GET and output source code of the website
     $response = file_get_contents("https://scmm.app/api/stats/items/allTimeHigh?start=0&count=20&currency=eur");
-    echo "<p>Fetching Steam market for stonking items.</p>";
     // Decode JSON data into a PHP associative array
     $data = json_decode($response, true);
 
@@ -76,16 +83,26 @@ function getStonkingItems(): array
  * @param array                $inventoryKeys Rust inventory keys.
  * @param array                $items Currently stonking items.
  *
- * @return void
+ * @return array                $yourStonks Your stonking items.
  */
-function getYourStonkingItems($inventory, $inventoryKeys, $items): void
+function getYourStonkingItems($inventory, $inventoryKeys, $items): array
 {
-    echo "<p>Stonking items that you have:</p>";
+    $itemNames = array_column($inventory, 'name');
+    $yourStonks =  [];
+
+    echo "<h1>Stonking items that you have:</h1>";
+    // Iterate over stonking items array to find mathces
     foreach ($items as $item) {
-        $key = array_search($item["name"], array_column($inventory, 'name'));
+        $key = array_search($item["name"], $itemNames);
+        // If there is a match
         if (is_int($key)) {
-            $item = $inventory[$inventoryKeys[$key]];
-            var_dump($item);
+            $stonkingItem = $inventory[$inventoryKeys[$key]];
+            $stonkingItem['price'] = $item['buyNowPrice'] / 100;
+            $stonkingItem['backgroundColour'] = $item['backgroundColour'];
+            $stonkingItem['foregroundColour'] = $item['foregroundColour'];
+            $stonkingItem['iconUrl'] = $item['iconUrl'];
+            array_push($yourStonks, $stonkingItem);
         }
     }
+    return $yourStonks;
 }
