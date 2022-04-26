@@ -12,3 +12,5 @@ require_once "functions.php";
 $steamId = $_ENV['STEAM_ID'];
 
 $myInventory = loadInventory($steamId);
+
+var_dump($myInventory);
