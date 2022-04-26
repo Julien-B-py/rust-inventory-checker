@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Return an array containing all items from your Rust inventory.
+ *
+ * @param string                $steamId Your SteamID64 or custom URL.
+ *
+ * @return array                $items Your Rust inventory.
+ */
 function loadInventory(string $steamId): array
 {
     // GET and output source code of the website
@@ -9,7 +16,7 @@ function loadInventory(string $steamId): array
     // Use array destructuring to assign rgInventory and rgDescriptions from $data to two variables.
     ['rgInventory' => $inventory, 'rgDescriptions' => $descriptions] = $data;
 
-    echo ("Fetching your Rust inventory.");
+    echo "<p>Fetching your Rust inventory</p>";
 
     // Create an empty array to store items using this structure : itemiId => count 
     $counts = [];
@@ -43,4 +50,42 @@ function loadInventory(string $steamId): array
     }
 
     return $items;
+}
+
+/**
+ * Return an array containing items currently at their all-time highest value.
+ *
+ * @return array                $items Currently stonking items.
+ */
+function getStonkingItems(): array
+{
+    $response = file_get_contents("https://scmm.app/api/stats/items/allTimeHigh?start=0&count=20&currency=eur");
+    echo "<p>Fetching Steam market for stonking items.</p>";
+    // Decode JSON data into a PHP associative array
+    $data = json_decode($response, true);
+
+    $items = $data["items"];
+
+    return $items;
+}
+
+/**
+ * Compare your Rust inventory with currently stonking items to check if you have any.
+ *
+ * @param array                $inventory The Rust inventory to check.
+ * @param array                $inventoryKeys Rust inventory keys.
+ * @param array                $items Currently stonking items.
+ *
+ * @return void
+ */
+function getYourStonkingItems($inventory, $inventoryKeys, $items): void
+{
+    echo "<p>Stonking items that you have:</p>";
+    foreach ($items as $item) {
+        $key = array_search($item["name"], array_column($inventory, 'name'));
+        if (is_int($key)) {
+            $item = $inventory[$inventoryKeys[$key]];
+            var_dump($item);
+        }
+    }
 }
