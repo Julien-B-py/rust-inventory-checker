@@ -27,12 +27,20 @@ if (empty($steamId)) : ?>
 endif;
 
 $myInventory = loadInventory($steamId);
+
+// If Steam profile data collect is successful
+if (!$myInventory) {
+    echo "<h1>An error occured while collecting your Steam profile data.</h1>";
+    return;
+}
+
 $myInventoryKeys = array_keys($myInventory);
 $stonkingItems = getStonkingItems();
 
 $yourStonks = getYourStonkingItems($myInventory, $myInventoryKeys, $stonkingItems);
 
 // var_dump($yourStonks);
+
 ?>
 
 

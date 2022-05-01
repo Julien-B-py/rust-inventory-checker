@@ -7,7 +7,7 @@
  *
  * @return array                $items Your Rust inventory.
  */
-function loadInventory(string $steamId): array
+function loadInventory(string $steamId): array|bool
 {
     // echo "<p>Fetching your Rust inventory</p>";
     if (intval($steamId) === 0) {
@@ -23,6 +23,12 @@ function loadInventory(string $steamId): array
     }
 
     $data = json_decode($response, true);
+
+    // If an error occured while trying to get Steam profile data
+    if ($data['success'] === false) {
+        return false;
+    }
+
     // Use array destructuring to assign rgInventory and rgDescriptions from $data to two variables.
     ['rgInventory' => $inventory, 'rgDescriptions' => $descriptions] = $data;
 
