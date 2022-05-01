@@ -11,10 +11,12 @@ function loadInventory(string $steamId): array
 {
     // echo "<p>Fetching your Rust inventory</p>";
     if (intval($steamId) === 0) {
+        // If custom URL given
         // GET and output source code of the website
         // Decode JSON data into a PHP associative array
         $response = file_get_contents("https://steamcommunity.com/id/{$steamId}/inventory/json/252490/2?l=english&count=5000");
     } else {
+        // If SteamID64 given
         // GET and output source code of the website
         // Decode JSON data into a PHP associative array
         $response = file_get_contents("https://steamcommunity.com/profiles/{$steamId}/inventory/json/252490/2?l=english&count=5000");
@@ -47,12 +49,12 @@ function loadInventory(string $steamId): array
     // List unique items
     foreach ($descriptions as $description) {
 
-        // Use array destructuring to assign itemId and itemName from $description to two variables.
-        ['classid' => $itemId, 'name' => $itemName] = $description;
+        // Use array destructuring to assign itemId, itemName and itemTags from $description to 3 variables.
+        ['classid' => $itemId, 'name' => $itemName, 'tags' => $itemTags] = $description;
 
         $itemCount = $counts[$itemId];
 
-        $items[$itemId] = ["name" => $itemName, "quantity" => $itemCount];
+        $items[$itemId] = ["name" => $itemName, "quantity" => $itemCount, "tags" => $itemTags];
     }
 
     return $items;
@@ -90,14 +92,13 @@ function getYourStonkingItems($inventory, $inventoryKeys, $items): array
     $itemNames = array_column($inventory, 'name');
     $yourStonks =  [];
 
-    echo "<h1>Stonking items that you have:</h1>";
     // Iterate over stonking items array to find mathces
     foreach ($items as $item) {
         $key = array_search($item["name"], $itemNames);
         // If there is a match
         if (is_int($key)) {
             $stonkingItem = $inventory[$inventoryKeys[$key]];
-            $stonkingItem['price'] = $item['buyNowPrice'] / 100;
+            $stonkingItem['price'] = number_format($item['buyNowPrice'] / 100, 2);
             $stonkingItem['backgroundColour'] = $item['backgroundColour'];
             $stonkingItem['foregroundColour'] = $item['foregroundColour'];
             $stonkingItem['iconUrl'] = $item['iconUrl'];

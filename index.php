@@ -12,7 +12,9 @@
 <body>
 
     <form action="/result.php" method="POST">
-        <input type="text" name="steamId" placeholder="SteamID64 or custom URL" required>
+        <h1>Check your Steam inventory</h1>
+        <label for="steamId">SteamID64 or custom URL</label>
+        <input type="text" id="steamId" name="steamId" required>
         <input type="submit" name="search" value="Search">
     </form>
 
