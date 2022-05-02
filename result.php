@@ -61,43 +61,59 @@ $yourStonks = getYourStonkingItems($myInventory, $myInventoryKeys, $stonkingItem
 
 <body>
 
-    <?php if (empty($yourStonks)) : ?>
-        <h1>No data to display, try again later.</h1>
-    <?php
-        return;
-    endif; ?>
+    <main>
 
-    <h1>Stonking items that you have:</h1>
+        <?php if (empty($yourStonks)) : ?>
+            <h2>No data to display, try again later.</h2>
+        <?php
+            return;
+        endif; ?>
 
-    <div class="items">
+        <h1>Stonking items that you have</h1>
 
-        <?php foreach ($yourStonks as $item) : ?>
-            <div class="item" style="border: 2px solid <?= $item['foregroundColour'] ?>;">
+        <div class="sort">
+            <label for="sort">Filter</label>
+            <select id="sort">
+                <option value="0">Name ASC</option>
+                <option value="1">Name DESC</option>
+                <option value="2">Price ASC</option>
+                <option value="3">Price DESC</option>
+            </select>
+        </div>
 
-                <h2><?= $item['name'] ?></h2>
+        <div class="items">
 
-                <div class="item__img">
-                    <div class="item__amount">
-                        <?= $item['quantity'] ?>
+            <?php foreach ($yourStonks as $item) : ?>
+                <div class="item" style="border: 2px solid <?= $item['foregroundColour'] ?>;">
+
+                    <h2><?= $item['name'] ?></h2>
+
+                    <div class="item__img">
+                        <div class="item__amount">
+                            x<?= $item['quantity'] ?>
+                        </div>
+                        <img src="<?= $item['iconUrl'] ?>" alt="">
                     </div>
-                    <img src="<?= $item['iconUrl'] ?>" alt="">
+
+                    <div class="item__tags">
+                        <?php foreach ($item['tags'] as $tag) : ?>
+                            <span><?= $tag['name'] ?></span>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <p><?= $item['price'] ?>€ <span>(<?= number_format($item['price'] * 0.85, 2) ?>€)</span></p>
+
+                    <button><a href="https://steamcommunity.com/market/listings/252490/<?= $item['name'] ?>"><i class="fa-brands fa-steam"></i> Community Market</a></button>
+
+
                 </div>
+            <?php endforeach; ?>
 
-                <div class="item__tags">
-                    <?php foreach ($item['tags'] as $tag) : ?>
-                        <span><?= $tag['name'] ?></span>
-                    <?php endforeach; ?>
-                </div>
+        </div>
 
-                <p><?= $item['price'] ?> € <span>(<?= number_format($item['price'] * 0.85, 2) ?> €)</span></p>
+    </main>
 
-                <button><a href="https://steamcommunity.com/market/listings/252490/<?= $item['name'] ?>"><i class="fa-brands fa-steam"></i> Community Market</a></button>
-
-
-            </div>
-        <?php endforeach; ?>
-
-    </div>
+    <script src="./scripts.js"></script>
 
 </body>
 

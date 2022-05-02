@@ -24,9 +24,10 @@ body {
 }
 
 h1 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
+    font-size: 2.25rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    align-self: flex-start;
 }
 
 form {
@@ -39,6 +40,12 @@ form {
     border-radius: 4px;
 }
 
+form h1 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
 input {
     height: 40px;
     border-radius: 4px;
@@ -49,7 +56,7 @@ input[type="text"] {
     border: 1px solid #dce4ec;
 }
 
-input[type="text"]:focus { 
+input[type="text"]:focus {
     outline: none;
     border-color: #509ad4;
     border-width: 2px;
@@ -62,22 +69,46 @@ input[type="submit"] {
     border: none;
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
 input[type="submit"]:hover {
-    background-color: #3e5677;
+    background-color: #213653;
 }
 
 label {
     font-size: 0.875rem;
 }
 
+main {
+    width: min(95%, 1200px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-block: 2rem;
+}
+
+select {
+    font-family: inherit;
+    border-radius: 4px;
+    background-color: #ebf1f7;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    /* transition: 0.3s ease; */
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1px solid #c2ccd6;
+}
+
+select option {
+    color: rgb(12, 15, 18);
+}
+
 .items {
     display: flex;
     gap: var(--cards-grid-gap);
     flex-wrap: wrap;
-    width: min(100%, 1200px);
 }
 
 .item {
@@ -90,7 +121,7 @@ label {
     justify-content: space-between;
     text-align: center;
     border-radius: 4px;
-    background-color: #ffffff;
+    background-color: #ebf1f7;
 }
 
 .item h2 {
@@ -104,11 +135,16 @@ label {
 
 .item button {
     width: max-content;
-    background-color: #171a21;
+    background-color: #294368;
     font-family: inherit;
     margin-inline: auto;
     border-radius: 4px;
     border: none;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.item button:hover {
+    background-color: #213653;
 }
 
 .item a {
@@ -129,14 +165,28 @@ label {
 
 .item__img img {
     width: 75%;
+    transition: 250ms;
+}
+
+.item__img img:hover {
+    transform: scale(1.1);
 }
 
 .item__amount {
-    font-size: 1.125rem;
+    font-size: 1rem;
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 85%;
+    bottom: 0;
+    background-color: #4c6a8a;
+    transform: rotateZ(10deg);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 0 0 3px rgba(80, 154, 212, .5);
+    z-index: 1000;
 }
 
 .item__tags {
@@ -147,13 +197,18 @@ label {
 }
 
 .item__tags span {
-    background-color: #e0e0e0;
+    background-color: #d7e3ee;
     border-radius: 999px;
     padding: 0.25rem 0.5rem;
     font-weight: 500;
 }
 
-
+.sort {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 0.25rem;
+}
 
 
 
