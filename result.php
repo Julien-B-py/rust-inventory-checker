@@ -12,7 +12,9 @@ require_once("_includes/functions.php");
 // $steamId = $_ENV['STEAM_ID'];
 
 // Preventing XSS
-$steamId = htmlspecialchars($_POST["steamId"]);
+if (isset($_POST["steamId"])) {
+    $steamId = htmlspecialchars($_POST["steamId"]);
+}
 
 // Add trim
 
@@ -41,6 +43,11 @@ $yourStonks = getYourStonkingItems($myInventory, $myInventoryKeys, $stonkingItem
 
 // var_dump($yourStonks);
 
+$totalItems = 0;
+foreach ($yourStonks as $item) {
+    $totalItems += $item["quantity"];
+}
+
 ?>
 
 
@@ -52,7 +59,7 @@ $yourStonks = getYourStonkingItems($myInventory, $myInventoryKeys, $stonkingItem
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>You have <?= $totalItems > 0 ? "$totalItems items to sell." : "no valuable item yet." ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>

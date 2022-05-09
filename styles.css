@@ -109,6 +109,7 @@ select option {
     display: flex;
     gap: var(--cards-grid-gap);
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .item {
