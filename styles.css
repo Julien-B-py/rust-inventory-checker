@@ -127,6 +127,7 @@ select option {
 
 .item h2 {
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .item p {
@@ -212,7 +213,22 @@ select option {
 }
 
 
-
+.feedback {
+    width: 250px;
+    height: 50px;
+    background-color: #13a05d;
+    color: #fff;
+    border-radius: 4px;
+    z-index: 100;
+    position: fixed;
+    display: flex;
+    bottom: -60px;
+    left: 24px;
+    right: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
 
 
 /* ---------- RESPONSIVE ---------- */

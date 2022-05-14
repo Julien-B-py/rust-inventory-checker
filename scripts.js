@@ -1,33 +1,16 @@
+// Storing DOM elements
 const sort = document.querySelector("select");
-
 let items = Array.from(document.querySelectorAll(".item"));
 
-const sortByNameAsc = (a, b) => {
-    return a.querySelector("h2").textContent.toLowerCase().localeCompare(b.querySelector("h2").textContent.toLowerCase());
-}
+// Sorting functions
+// Name ascending
+const sortByNameAsc = (a, b) => a.querySelector("h2").textContent.toLowerCase().localeCompare(b.querySelector("h2").textContent.toLowerCase());
 
-const sortByNameDesc = (a, b) => {
-    return b.querySelector("h2").textContent.toLowerCase().localeCompare(a.querySelector("h2").textContent.toLowerCase());
-}
+// Name descending
+const sortByNameDesc = (a, b) => b.querySelector("h2").textContent.toLowerCase().localeCompare(a.querySelector("h2").textContent.toLowerCase());
 
-// const sortByPriceAsc = (a, b) => {
-//     const aPrice = Number(a.querySelector("p").textContent.toLowerCase().split('€')[0]);
-//     const bPrice = Number(b.querySelector("p").textContent.toLowerCase().split('€')[0]);
-//     if (aPrice > bPrice) return 1;
-//     if (aPrice < bPrice) return -1;
-//     return 0;
-// }
-
-// const sortByPriceDesc = (a, b) => {
-//     const aPrice = Number(a.querySelector("p").textContent.toLowerCase().split('€')[0]);
-//     const bPrice = Number(b.querySelector("p").textContent.toLowerCase().split('€')[0]);
-//     if (aPrice < bPrice) return 1;
-//     if (aPrice > bPrice) return -1;
-//     return 0;
-// }
-
-
-function sortByPrice(order = 'asc') {
+// Price
+const sortByPrice = (order = 'asc') => {
 
     return function innerSort(a, b) {
 
@@ -41,11 +24,39 @@ function sortByPrice(order = 'asc') {
 
 }
 
+// User feedback display
+const displayUserFeedback = (closingDelay = 3000) => {
+
+    // Check if one exists already
+    // If so interrupt to not stack them
+    if (document.querySelector(".feedback")) {
+        return;
+    }
+
+    // If not existing create a div with feedback class
+    const feedback = document.createElement("div");
+    feedback.classList.add("feedback");
+    // Add text to the div and add the whole element to the document body
+    feedback.innerHTML += '<i class="fa-solid fa-check"></i> Copié avec succès !';
+    document.body.appendChild(feedback);
+
+    // Slide in animation
+    gsap.to(".feedback", { bottom: '24px' });
+
+    // Slide out animation then remove the element from the DOM
+    setTimeout(() => {
+        gsap.to(".feedback", { bottom: '-60px', onComplete: () => feedback.remove() });
+    }, closingDelay);
+
+}
 
 
+// Detect changes made on the select input
 sort.addEventListener('change', function () {
+    // Retrieve the current selected value
     const method = Number(sort.value);
 
+    // Depending on the value execute a specific sort
     switch (method) {
 
         case 0:
@@ -55,16 +66,15 @@ sort.addEventListener('change', function () {
             items.sort(sortByNameDesc);
             break;
         case 2:
-            // items.sort(sortByPriceAsc);
             items.sort(sortByPrice('asc'));
             break;
         case 3:
-            // items.sort(sortByPriceDesc);
             items.sort(sortByPrice('desc'));
             break;
 
     }
 
+    // When sorting is done, display the items in the specified order
     for (var i = 0; i < items.length; i++) {
         items[i].parentNode.appendChild(items[i]);
     }
@@ -79,6 +89,16 @@ for (var i = 0; i < items.length; i++) {
     items[i].parentNode.appendChild(items[i]);
 }
 
+
+
+// Copy to clipboard
+items.forEach(item => {
+    const itemName = item.querySelector("h2").textContent;
+    item.querySelector("h2").addEventListener("click", () => {
+        navigator.clipboard.writeText(itemName);
+        displayUserFeedback();
+    });
+})
 
 
 

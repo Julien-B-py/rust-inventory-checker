@@ -1,22 +1,15 @@
 <?php
 
-// declare(strict_types=1);
-
-// require_once("vendor/autoload.php");
-
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-// $dotenv->load();
-
 require_once("_includes/functions.php");
 
-// $steamId = $_ENV['STEAM_ID'];
 
-// Preventing XSS
 if (isset($_POST["steamId"])) {
+    // Preventing XSS
     $steamId = htmlspecialchars($_POST["steamId"]);
+    // Removing whitespaces
+    $steamId = trim($steamId);
 }
 
-// Add trim
 
 if (!isset($_POST["search"])) {
     echo "You need to click on the submit button.";
@@ -30,7 +23,7 @@ endif;
 
 $myInventory = loadInventory($steamId);
 
-// If Steam profile data collect is successful
+// If Steam profile data collect is unsuccessful
 if (!$myInventory) {
     echo "<h1>An error occured while collecting your Steam profile data.</h1>";
     return;
@@ -120,6 +113,7 @@ foreach ($yourStonks as $item) {
 
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <script src="./scripts.js"></script>
 
 </body>
