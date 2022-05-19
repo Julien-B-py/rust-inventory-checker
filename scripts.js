@@ -56,7 +56,7 @@ sort.addEventListener('change', function () {
     // Retrieve the current selected value
     const method = Number(sort.value);
 
-    // Depending on the value execute a specific sort
+    // Depending on the value execute a specific sort on items array
     switch (method) {
 
         case 0:
@@ -92,8 +92,11 @@ for (var i = 0; i < items.length; i++) {
 
 
 // Copy to clipboard
+// For each item from items array
 items.forEach(item => {
+    // Get h2 text
     const itemName = item.querySelector("h2").textContent;
+    // When clicking on the text copy the text to the clipboard and give the information to the user
     item.querySelector("h2").addEventListener("click", () => {
         navigator.clipboard.writeText(itemName);
         displayUserFeedback();

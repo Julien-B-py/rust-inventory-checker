@@ -36,6 +36,7 @@ $yourStonks = getYourStonkingItems($myInventory, $myInventoryKeys, $stonkingItem
 
 // var_dump($yourStonks);
 
+// Determine how much stonking items the user has
 $totalItems = 0;
 foreach ($yourStonks as $item) {
     $totalItems += $item["quantity"];
