@@ -19,8 +19,27 @@ body {
     align-items: center;
     flex-direction: column;
     gap: 2rem;
-    background-color: #d7e3ee;
-    color: rgb(12, 15, 18);
+    background-color: #fff6ea;
+    color: #1e2020;
+}
+
+header {
+    width: 100%;
+    padding-block: 1rem;
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0px;
+    z-index: 1100;
+    background-color: #eec55eBF;
+}
+
+header .container {
+    width: min(95%, 1200px);
+    margin: auto;
+}
+
+header img {
+    height: 30px;
 }
 
 h1 {
@@ -30,14 +49,57 @@ h1 {
     align-self: flex-start;
 }
 
+footer {
+    background-image: url(../images/footer.png);
+    background-position: center top;
+    padding-top: 150px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+footer p {
+    font-size: 0.75rem;
+    color: #1e2020;
+    text-align: center;
+    font-weight: 500;
+}
+
+footer a {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    color: #1e2020;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+footer a:hover {
+    background-color: #fff6ea;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    width: min(95%, 1200px);
+    margin: auto;
+    padding-bottom: 3rem;
+    align-items: center;
+}
+
 form {
     display: flex;
     flex-direction: column;
     width: min(95%, 450px);
     gap: 0.5rem;
-    padding: 3rem;
+    padding: 1.5rem;
     background-color: #ffffff;
     border-radius: 4px;
+    margin: auto;
 }
 
 form h1 {
@@ -50,22 +112,24 @@ input {
     height: 40px;
     border-radius: 4px;
     padding: 0.5rem 1rem;
+    font-family: 'Roboto', sans-serif;
 }
 
 input[type="text"] {
     border: 1px solid #dce4ec;
+    transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #509ad4;
+    border-color: #dd7a6b;
     border-width: 2px;
 }
 
 
 input[type="submit"] {
-    background-color: #294368;
-    color: #ffffff;
+    background-color: #ce412b;
+    color: #fff6eb;
     border: none;
     font-size: 1rem;
     cursor: pointer;
@@ -73,7 +137,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #213653;
+    background-color: #b93b27;
 }
 
 label {
@@ -86,19 +150,20 @@ main {
     align-items: center;
     flex-direction: column;
     padding-block: 2rem;
+    flex: 1;
 }
 
 select {
     font-family: inherit;
     border-radius: 4px;
-    background-color: #ebf1f7;
+    background-color: #fff;
     padding: 0.5rem;
     border: none;
     cursor: pointer;
     /* transition: 0.3s ease; */
     margin-bottom: 1rem;
     font-size: 1rem;
-    border: 1px solid #c2ccd6;
+    border: 1px solid #eec55e;
 }
 
 select option {
@@ -122,7 +187,7 @@ select option {
     justify-content: space-between;
     text-align: center;
     border-radius: 4px;
-    background-color: #ebf1f7;
+    background-color: #fff;
 }
 
 .item h2 {
@@ -137,7 +202,7 @@ select option {
 
 .item button {
     width: max-content;
-    background-color: #294368;
+    background-color: #ce412b;
     font-family: inherit;
     margin-inline: auto;
     border-radius: 4px;
@@ -146,7 +211,7 @@ select option {
 }
 
 .item button:hover {
-    background-color: #213653;
+    background-color: #b93b27;
 }
 
 .item a {
@@ -178,7 +243,7 @@ select option {
     font-size: 1rem;
     position: absolute;
     bottom: 0;
-    background-color: #4c6a8a;
+    background-color: #eec55e;
     transform: rotateZ(10deg);
     width: 40px;
     height: 40px;
@@ -186,8 +251,7 @@ select option {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    box-shadow: 0 0 0 3px rgba(80, 154, 212, .5);
+    box-shadow: 0 0 0 3px rgba(238, 197, 94, .5);
     z-index: 1000;
 }
 
@@ -199,7 +263,7 @@ select option {
 }
 
 .item__tags span {
-    background-color: #d7e3ee;
+    background-color: #f3d68e;
     border-radius: 999px;
     padding: 0.25rem 0.5rem;
     font-weight: 500;

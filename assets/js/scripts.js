@@ -75,7 +75,7 @@ sort.addEventListener('change', function () {
     }
 
     // When sorting is done, display the items in the specified order
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         items[i].parentNode.appendChild(items[i]);
     }
 
@@ -84,7 +84,7 @@ sort.addEventListener('change', function () {
 // Sort our items array by name ascending
 items.sort(sortByNameAsc);
 // Add each item from the sorted array to our div .items
-for (var i = 0; i < items.length; i++) {
+for (let i = 0; i < items.length; i++) {
     // Get div .items and add our div .item to it
     items[i].parentNode.appendChild(items[i]);
 }

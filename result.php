@@ -55,12 +55,14 @@ foreach ($yourStonks as $item) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You have <?= $totalItems > 0 ? "$totalItems items to sell." : "no valuable item yet." ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 
 
 
 <body>
+
+    <?php require_once("_includes/header.php"); ?>
 
     <main>
 
@@ -93,7 +95,7 @@ foreach ($yourStonks as $item) {
                         <div class="item__amount">
                             x<?= $item['quantity'] ?>
                         </div>
-                        <img src="<?= $item['iconUrl'] ?>" alt="">
+                        <img src="<?= $item['iconUrl'] ?>" alt="<?= $item['name'] ?>">
                     </div>
 
                     <div class="item__tags">
@@ -114,8 +116,10 @@ foreach ($yourStonks as $item) {
 
     </main>
 
+    <?php require_once("_includes/footer.php"); ?>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-    <script src="./scripts.js"></script>
+    <script src="./assets/js/scripts.js"></script>
 
 </body>
 
