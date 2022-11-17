@@ -14,12 +14,12 @@ function loadInventory(string $steamId): array|bool
         // If custom URL given
         // GET and output source code of the website
         // Decode JSON data into a PHP associative array
-        $response = file_get_contents("https://steamcommunity.com/id/{$steamId}/inventory/json/252490/2?l=english&count=5000");
+        $response = file_get_contents("https://steamcommunity.com/inventory/{$steamId}/252490/2?l=french&count=5000");
     } else {
         // If SteamID64 given
         // GET and output source code of the website
         // Decode JSON data into a PHP associative array
-        $response = file_get_contents("https://steamcommunity.com/profiles/{$steamId}/inventory/json/252490/2?l=english&count=5000");
+        $response = file_get_contents("https://steamcommunity.com/inventory/{$steamId}/252490/2?l=french&count=5000");
     }
 
     $data = json_decode($response, true);
@@ -30,7 +30,12 @@ function loadInventory(string $steamId): array|bool
     }
 
     // Use array destructuring to assign rgInventory and rgDescriptions from $data to two variables.
-    ['rgInventory' => $inventory, 'rgDescriptions' => $descriptions] = $data;
+    ['assets' => $inventory, 'descriptions' => $descriptions] = $data;
+
+    if (!$inventory) {
+        echo "Too many requests";
+        return false;
+    }
 
     // Create an empty array to store items using this structure : itemiId => count 
     $counts = [];
